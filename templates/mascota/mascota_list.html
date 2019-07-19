@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>#</td>
+				<td>Nombre</td>
+				<td>Genero</td>
+				<td>Edad</td>
+				<td>Fecha rescate</td>
+				<td>Adoptante</td>
+				<td>Accion</td>
+			</tr>
+		</thead>
+
+		<tbody>
+				{% if object_list %}	<!--  PARA: VISTAS A TRAVEZ DE CLASES       PARA: VISTAS A TRAVEZ DE FUNCIONES (if mascotas)  -->
+				{% for mascota in object_list %}	<!--  PARA: VISTAS A TRAVEZ DE CLASES    PARA: VISTAS A TRAVEZ DE FUNCIONES (for mascota in mascotas)  -->
+				<tr>
+					<td>{{mascota.id}}</td>
+					<td>{{mascota.nombre}}</td>
+					<td>{{mascota.sexo}}</td>
+					<td>{{mascota.edad_aproximada}}</td>
+					<td>{{mascota.fecha_rescate}}</td>
+					<td>{{mascota.persona.nombre}} {{mascota.persona.apellidos}}</td>
+					<td> <a class="btn btn-primary" href="{% url 'mascota:mascota_editar' mascota.id %}" >Editar</a> &nbsp; 
+						 <a class="btn btn-danger" href="{% url 'mascota:mascota_eliminar' mascota.id %}" >Eliminar</a> 
+					</td>
+				</tr>
+				{% endfor %}	
+			{% else %}	
+				<h1>No existen registros de mascotas</h1>
+			{% endif %}	
+		</tbody>
+
+	</table>
+
+	<ul class="pager">
+		<li>
+			{% if page_obj.has_previous %}
+				<a href=" ?page={{ page_obj.previous_page_number }} ">&larr; Previo</a>
+			{% endif %}	
+		</li>
+		<li>
+			{% if page_obj.has_next %}
+				<a href=" ?page={{ page_obj.next_page_number }} ">Siguiente &rarr;</a>
+			{% endif %}	
+		</li>
+	</ul>
+{% endblock %}

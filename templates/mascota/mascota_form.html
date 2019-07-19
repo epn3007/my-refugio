@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+	<form method="post" >		<!-- Se crea el fromr-->
+		{% csrf_token %}  <!-- token se seguridad que provee djando, se debe de incluir si no va a marcar error -->
+		{{ form.as_p }}    <!-- Se indica que se pintara el formulario como parrafo-->
+		<button class="btn btn-primary" type="submit">Guardar</button>
+		<a class="btn btn-default" href="{% url 'mascota:mascota_listar' %}">Cancelar</a>
+	</form>
+{% endblock %}
